@@ -2,7 +2,10 @@ import React from 'react'
 
 const Movies = () => {
   return (
-    <div>Movies</div>
+    <div>
+       <h1 className="text-center"> Movies </h1>
+
+       </div>
   )
 }
 

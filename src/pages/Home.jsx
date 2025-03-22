@@ -21,7 +21,7 @@ const Home = () => {
       const response = await axios.get(url, {
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU'
+          Authorization: 'Bearer ${process.env.MOVKEY}'
         }
       });
       setter([...response.data.results, ...response.data.results, ...response.data.results]);

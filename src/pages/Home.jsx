@@ -1,15 +1,3 @@
-// const Home = () => {
-//   return (
-//     <div className="bg-green-500 h-full dark:bg-orange-700">
-//       <div>1</div>
-//       <div>2</div>
-//       <div>3</div>
-//     </div>
-//   )
-// }
-
-// export default Home
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';

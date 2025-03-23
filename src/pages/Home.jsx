@@ -17,11 +17,12 @@ const Home = () => {
   const autoScrollRef = useRef(null);
 
   const fetchMovies = async (url, setter) => {
+        const KEY= import.meta.env.MOVKEY
     try {
       const response = await axios.get(url, {
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer ${process.env.MOVKEY}'
+          Authorization: `Bearer ${KEY}`
         }
       });
       setter([...response.data.results, ...response.data.results, ...response.data.results]);

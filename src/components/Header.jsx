@@ -1,6 +1,5 @@
 import { FaBars, FaChevronDown} from "react-icons/fa";
 import { MdDarkMode, MdLightMode , MdLogin  } from "react-icons/md";
-
 import { FaXmark } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 import {
@@ -19,18 +18,19 @@ import {
 import { Link } from "react-router-dom";
 
 const navListMenuItems = [
+  { title: "All Movies",      path: "/movies" },
   { title: "Top Rated",       path: "/top-rated" },
   { title: "Now Playing",     path: "/now-playing" }, 
-  { title: "Popular Movies",  path: "/popular" },
+  { title: "Trending Movies", path: "/trending" },
   { title: "Upcoming Movies", path: "/upcoming" },
 ];
 
 
 const navListSeries = [
-  { title: "Top Rated" },
-  { title: "Now Playing" },
-  { title: "Popular Movies" },
-  { title: "Upcoming Movies" },
+  { title: "Airing Today" ,path: "/airing-today"},
+  { title: "On The Air" ,path: "/on-the-air"  },
+  { title: "Popular Shows" ,path: "/popular-tv"       },
+  { title: "Top Rated Shows" ,path: "/top-rated-tv"    },
 
 ];
 
@@ -52,6 +52,7 @@ const NavDropdown = ({ title, items }) => {
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} offset={{ mainAxis: 20 }} placement="bottom" allowHover>
       <MenuHandler>
+        
         <Typography as={Link} to={`/${title.toLowerCase()}`} variant="small" className="font-medium">
           <ListItem
             className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
@@ -59,11 +60,13 @@ const NavDropdown = ({ title, items }) => {
             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
           >
             {title}
+            
             <FaChevronDown strokeWidth={2.5} className={`hidden h-3 w-3 transition-transform lg:block  ${isMenuOpen ? "rotate-180" : ""}`} />
             <FaChevronDown strokeWidth={2.5} className={`block h-3 w-3 transition-transform lg:hidden  ${isMobileMenuOpen ? "rotate-180" : ""}`} />
           </ListItem>
         </Typography>
       </MenuHandler>
+      
       <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
         <ul className="grid grid-cols-2 gap-y-2 outline-none outline-0">{renderItems}</ul>
       </MenuList>
@@ -83,7 +86,7 @@ const NavList = () => (
     <NavDropdown title="Movies" items={navListMenuItems} />
     <NavDropdown title="Series" items={navListSeries} />
     
-    <Typography as={Link} to="/contact" variant="small" color="blue-gray" className="font-medium">
+    <Typography as={Link} to="/contact-us" variant="small" color="blue-gray" className="font-medium">
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Contact Us</ListItem>
     </Typography>
   </List>
@@ -113,7 +116,7 @@ const Header = () => {
   };
   return (
     <div>
-      <Navbar className="mx-auto max-w-screen-4xl px-4 py-2  bg-gradient-to-tr   from-blue-900 via-cyan-300  to-black  border-none rounded-none" >
+      <Navbar className="mx-auto max-w-screen-4xl px-4 py-2  dark:bg-gradient-to-tr  dark:from-black dark:via-purple-800  dark:to-black bg-gradient-to-tr from-red-900 via-red-500 to-black  border-none rounded-none" >
 
         <div className="flex items-center justify-between text-white">
           <Typography as={Link} to="/home" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2 hover:text-blue-200">
@@ -135,6 +138,7 @@ const Header = () => {
           </Typography> 
 
           </div>
+          
           <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
             {openNav ? <FaXmark className="h-6 w-6" strokeWidth={2} /> : <FaBars className="h-6 w-6" strokeWidth={2} />}
           </IconButton>

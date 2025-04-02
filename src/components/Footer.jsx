@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
   return (
     <div className="">
-      <div className="flex pt-5 flex-row  items-center justify-center gap-y-6   bg-gradient-to-tl  p-4 from-blue-900 via-cyan-500  to-black text-white  py-6 text-center md:justify-between">
+      <div className="flex pt-5 flex-row  items-center justify-center gap-y-6   bg-gradient-to-tl  p-4dark:bg-gradient-to-tr  dark:from-black dark:via-purple-800  dark:to-black  from-red-900 via-red-500 to-black  text-white  py-6 text-center md:justify-between">
       <Typography  className="font-normal">
         <img src="./movie.png" width={100} alt="" /> 
       </Typography>

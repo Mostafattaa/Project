@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa"; 
 
-const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLinks,setSocialLinks} ) => {
+const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLinks,setSocialLinks, isLoggedIn} ) => {
   const { actorId } = useParams();
   
   const navigate = useNavigate();
@@ -89,7 +89,7 @@ const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLink
               <div 
               key={`${movie.id}-${index}`}  // ✅ Ensures unique key
               className="cursor-pointer transition transform hover:scale-105"
-              onClick={() => navigate(`/movie/${movie.id}`)} 
+              onClick={() => isLoggedIn ? navigate(`/movie/${movie.id}`): navigate("/login") } 
               >
                 <img 
                   src={movie.poster_path ? `https://image.tmdb.org/t/p/w300${movie.poster_path}` : 'https://placehold.co/200x300?text=No+Image'} 
@@ -116,7 +116,7 @@ const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLink
               <div 
               key={`${show.id}-${index}`}  // ✅ Ensures unique key
               className="cursor-pointer transition transform hover:scale-105"
-              onClick={() => navigate(`/tv/${show.id}`)} 
+              onClick={() => isLoggedIn ? navigate(`/tv/${show.id}`) : navigate("/login") } 
               >
                 <img 
                   src={show.poster_path ? `https://image.tmdb.org/t/p/w300${show.poster_path}` : 'https://placehold.co/200x300?text=No+Image'} 

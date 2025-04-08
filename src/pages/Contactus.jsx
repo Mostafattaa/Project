@@ -1,7 +1,7 @@
 
 import React from "react";
 
-const ContactUs = () => {
+const Contactus = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-8">
       <h1 className="text-4xl font-bold mb-8">Contact Us</h1>

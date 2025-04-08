@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
@@ -30,8 +30,90 @@ const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
 
+//Marcelinooooooooooo
+const API_UBASE_URL = "https://uttermost-light-outrigger.glitch.me/users";
+
 
 const App = () => {
+  //Marcelinooooooooo
+  const [user,setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.logged ? localStorage.logged : false);
+  const [signError,setSignError] = useState("");
+  const [loginError,setLoginError] = useState("");
+  
+  const navigate = useNavigate();
+  
+  const getUsers = async () => {
+    try {
+      const response = await axios.get(API_UBASE_URL);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        alert("Failed to fetch users");
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  }
+
+  const registerNewUser = async (signName, signEmail, signPass) => {
+    const users = await getUsers();
+    const emailExists = users.some(user => user.email === signEmail);
+    if (emailExists) {
+      setSignError("Email already exists");
+      return;
+    }
+    try {
+      const response = await axios.post(API_UBASE_URL, {
+        name: signName,
+        email: signEmail,
+        password: signPass,
+        liked: []
+      });
+      if (response.status === 201) {
+        setUser(response.data);
+        setIsLoggedIn(true);
+        localStorage.setItem("id", response.data.id);
+        localStorage.setItem("logged", true);
+        navigate('/home')
+      } else {
+        setSignError("Failed to register user");
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  }
+
+  const validateUser = async (email, password) => {
+    try {
+      const response = await axios.get(API_UBASE_URL);
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch users");
+      }
+      const user = response.data.find((user) => user.email === email && user.password === password);
+      if (user) {
+        setUser(user);
+        setIsLoggedIn(true);
+        localStorage.setItem("id", user.id);
+        localStorage.setItem("logged", true);
+        navigate('/home')
+      } else {
+        setLoginError("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error validating user:", error);
+    }
+  }
+
+  const logout = () => {
+    setUser(null);
+    setIsLoggedIn(false);
+    localStorage.removeItem("id");
+    localStorage.removeItem("logged");
+    navigate('/home')
+  }
+  //Marcelinooooooooooo----------------------
+
 useEffect(() => {
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark');
@@ -213,16 +295,16 @@ const [actor, setActor] = useState(null);
 
   return (
     <div>
-     <Header />
+     <Header isLoggedIn={isLoggedIn} logout={logout} />
 
      <Routes>
         <Route   index path=""                        element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending} />}/>
         
         <Route   path="/home"                         element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending}/>}/>
 
-        <Route  path="/login"                         element={<Login />}/>
+        <Route  path="/login"                         element={<Login                   validateUser={validateUser} isLoggedIn={isLoggedIn} loginError={loginError} setLoginError={setLoginError} />}/>
         
-        <Route  path="/sign-up"                       element={<Signup />}/>
+        <Route  path="/sign-up"                       element={<Signup                  registerNewUser={registerNewUser} isLoggedIn={isLoggedIn} signError={signError} setSignError={setSignError} />}/>
         
         <Route  path="/movies"                        element={<Movies                 movies={movies} currentPage={currentPage} setMovies={setMovies} genres={genres} setGenres={setGenres} selectedGenre={selectedGenre} setCurrentPage={setCurrentPage} setSelectedGenre={setSelectedGenre} handleGenreSelect={handleGenreSelect} handlePageChange={handlePageChange} />}/>
         
@@ -234,7 +316,7 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/genre/:genreId/:genreName"     element={<Genre                  movies={movies}  setMovies={setMovies} movieTotalPages={movieTotalPages} setMovieTotalPages={setMovieTotalPages} currentPage={currentPage} handlePageChange={handlePageChange} />} /> {/* Updated name */}
         
-        <Route  path="/actor/:actorId"                element={<Actor                  actor={actor} setActor={setActor} tvShows={tvShows} setTvShows={setTvShows} socialLinks={socialLinks} setSocialLinks={setSocialLinks} movies={movies} setMovies={setMovies}/>} /> {/* Add Actor Route */}
+        <Route  path="/actor/:actorId"                element={<Actor                  actor={actor} setActor={setActor} tvShows={tvShows} setTvShows={setTvShows} socialLinks={socialLinks} setSocialLinks={setSocialLinks} movies={movies} setMovies={setMovies} isLoggedIn={isLoggedIn}/>} /> {/* Add Actor Route */}
         
         <Route  path="/tv/:id/season/:seasonNumber"   element={<SeasonDetails />} />
         
@@ -248,7 +330,7 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/upcoming"                      element={<Upcoming               movies={movies}  setMovies={setMovies}  currentPage={currentPage} handlePageChange={handlePageChange}/>} />
         
-        <Route  path="/airing-today"                  element={<Airingtoday            tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage} setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange}/>} />
+        <Route  path="/airing-today"                  element={<Airingtoday            tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage} setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange} isLoggedIn={isLoggedIn} />} />
         
         <Route  path="/on-the-air"                    element={<Ontheair               tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage}  setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange}/>} />
         

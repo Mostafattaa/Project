@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FaHeart } from 'react-icons/fa';
 
 const Series = ({ tvSeries, setTvSeries, currentPage, tvgenres, selectedGenre, setCurrentPage, setSelectedGenre, handleGenreSelect, handlePageChange }) => {
   const [tvTotalPages, setTvTotalPages] = useState(1);
@@ -27,13 +28,13 @@ const Series = ({ tvSeries, setTvSeries, currentPage, tvgenres, selectedGenre, s
     };
 
     fetchSeries();
-  }, [currentPage, selectedGenre]); // Corrected dependency array
+  }, [currentPage, selectedGenre]); 
 
   return (
     <div className="bg-gray-300 dark:bg-gray-900 text-black dark:text-white p-6">
       <h1 className="text-3xl font-bold text-center text-black dark:text-white mb-6">TV Shows</h1>
 
-      {/* Pagination Controls */}
+    
       <div className="flex justify-center m-8 space-x-4">
         <button
           onClick={() => handlePageChange("prev")}
@@ -80,6 +81,11 @@ const Series = ({ tvSeries, setTvSeries, currentPage, tvgenres, selectedGenre, s
             className="bg-gradient-to-tr from-gray-600 to-gray-400 hover:from-red-700 hover:to-gray-700 dark:from-gray-900 dark:to-gray-700 dark:hover:from-purple-800 dark:hover:to-gray-800 dark:hover:bg-gradient-to-tr rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:scale-105"
             onClick={() => navigate(`/tv/${series.id}`)}
           >
+
+             <div className="absolute top-2 right-2 z-10 p-2 bg-gray-800/40 rounded-full backdrop-blur-md hover:bg-white/30 transition">
+             <FaHeart className="w-5 h-5 text-white hover:text-red-500 transition-colors duration-200" />
+             </div>
+            
             <img
               src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : "https://placehold.co/300x450?text=No+Image"}
               alt={series.name}

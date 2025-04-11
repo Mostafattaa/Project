@@ -87,7 +87,7 @@ const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLink
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
             {movies.map((movie,index) => (
               <div 
-              key={`${movie.id}-${index}`}  // ✅ Ensures unique key
+              key={`${movie.id}-${index}`}  //  unique key
               className="cursor-pointer transition transform hover:scale-105"
               onClick={() => isLoggedIn ? navigate(`/movie/${movie.id}`): navigate("/login") } 
               >
@@ -114,7 +114,7 @@ const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLink
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
             {tvShows.map((show,index) => (
               <div 
-              key={`${show.id}-${index}`}  // ✅ Ensures unique key
+              key={`${show.id}-${index}`}  //  unique key
               className="cursor-pointer transition transform hover:scale-105"
               onClick={() => isLoggedIn ? navigate(`/tv/${show.id}`) : navigate("/login") } 
               >

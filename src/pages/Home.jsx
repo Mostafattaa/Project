@@ -2,6 +2,8 @@
  import { useNavigate } from 'react-router-dom';
  import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
  import axios from 'axios';
+ import { FaHeart } from 'react-icons/fa';
+
  import { Carousel } from '@material-tailwind/react';
  const Home = ({ movies, recentMovies, popularMovies, nowPlaying, tvSeries, trending }) => {
   
@@ -43,7 +45,14 @@
            <div ref={carouselRef} className='flex space-x-4' style={{ transform: `translateX(${scrollPosition}px)`, transition: 'transform 0.1s linear' }}>
              {items.map((movie, index) => (
               <div   key={index} className="relative w-60 h-auto bg-gradient-to-tr from-gray-600 to-gray-400  hover:from-red-700 hover:to-gray-700   dark:from-gray-900 dark:to-gray-700 dark:hover:from-purple-800 dark:hover:to-gray-800 dark:hover:bg-gradient-to-tr text-white p-4 rounded-lg shadow-lg flex flex-col justify-between flex-none cursor-pointer  transform transition duration-300 hover:scale-105"   onClick={() => navigate(`/movie/${movie.id}`)}>
-                 <div className='absolute top-2 right-2 bg-black text-yellow-400 text-xs px-2 py-1 rounded-lg'>⭐ {movie.vote_average}</div>
+                 <div className='absolute top-2 left-2 bg-black text-yellow-400 text-xs px-2 py-1 rounded-lg'>⭐ {movie.vote_average}</div>
+                 
+                  {/* Heart Icon (Top-Right Corner) */}
+                  <div className="absolute top-2 right-2 z-10 p-2 bg-gray-800/40 rounded-full backdrop-blur-md hover:bg-white/30 transition">
+                        <FaHeart className="w-5 h-5 text-white hover:text-red-500 transition-colors duration-200" />
+                      </div>
+                 
+                 
                  <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/150?text=No+Image'} alt={movie.title} className='w-full h-72 object-cover rounded-md mt-2' />
                  <div className='text-center px-2'>
                    <h2 className='text-lg font-semibold leading-tight'>{movie.title || movie.name}</h2>
@@ -75,6 +84,12 @@
            onClick={() => navigate(`/movie/${movie.id}`)}
          >
            <div className='flex flex-row justify-center'>
+
+             {/* Heart Icon (Top-Right Corner) */}
+                      <div className="absolute top-2 right-2 z-10 p-2 bg-gray-400/40 rounded-full backdrop-blur-md hover:bg-white/30 transition">
+                        <FaHeart className="w-5 h-5 text-white hover:text-red-500 transition-colors duration-200" />
+                      </div>
+            
            <img
              src={movie.poster_path ? `https://image.tmdb.org/t/p/w1280${movie.poster_path}` : 'https://placehold.co/1280x720?text=No+Image'}
              alt={movie.title}

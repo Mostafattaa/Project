@@ -168,48 +168,7 @@ const [tvgenres, setTvGenres] = useState([]);
 const [selectedGenre, setSelectedGenre] = useState(() => {
   return localStorage.getItem("selectedGenre") ? JSON.parse(localStorage.getItem("selectedGenre")) : null;
 });
-/*
-// Fetch Movies
-// const fetchMovie = async (currentPage, genreId = null) => {
-//   try {
-//     const genreParam = genreId ? `&with_genres=${genreId}` : "";
-//     const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?page=${currentPage}${genreParam}`, {
-//       headers: { accept: "application/json", Authorization:  API_TOKEN },
-//     });
-  
-//       setMovies(response.data.results);
-//       setMovieTotalPages(response.data.total_pages);
 
-    
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//   }
-// };
- 
-// const fetchGenre = async (currentPage,genreId) => {
-//   try {
-//     const res = await axios.get(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&page=${currentPage}`);
-//     setMovies(res.data.results);
-//     setTotalPages(res.data.total_pages)
-//   } catch (error) {
-//     console.error("Error fetching movies:", error);
-//   }
-// };
-
-
-// Fetch Genres
-// const fetchGenres = async () => {
-//   try {
-//     const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`, {
-//       headers: { accept: "application/json", Authorization: API_TOKEN },
-//     });
-//     setGenres(response.data.genres);
-//   } catch (error) {
-//     console.error("Error fetching genres:", error);
-//   }
-// };
-
-*/
 
 const fetchTVGenres = async () => {
   try {
@@ -223,51 +182,13 @@ const fetchTVGenres = async () => {
 };
 
 
-//fetch series
-// const fetchSeries = async (currentPage, genreID = null) => {
-//   try {
-//     const genreParam = genreID ? `&with_genres=${genreID}` : "";
-//     const response = await axios.get(`${API_BASE_URL}/discover/tv?page=${currentPage}${genreParam}`, {
-//       headers: { accept: "application/json", Authorization: API_TOKEN },
-//     });
-//     if (response.data.results.length > 0) {
-//       setTvSeries(response.data.results);
-//       setTvTotalPages(response.data.total_pages);
-//     }
-//   } catch (error) {
-//     console.error("Error fetching TV Series:", error);
-//   }
-// };
-
-// const fetchPopulartv = async () => {
-//   try {
-//     const response = await axios.get(
-//       `https://api.themoviedb.org/3/tv/popular?page=${currentPage}`, 
-//       {
-//         headers: { accept: "application/json", Authorization: API_TOKEN },
-//       }
-//     );
-//     setTvSeries(response.data.results);
-//     setTvTotalPages(response.data.total_pages);
-//   } catch (error) {
-//     console.error("Error fetching popular TV series:", error);
-//   }
-// };
 
 
 useEffect(() => {
   localStorage.setItem("selectedGenre", JSON.stringify(selectedGenre));
   localStorage.setItem("currentPage", JSON.stringify(currentPage));
-}, [selectedGenre, currentPage]); // Runs when currentPage or selectedGenre changes
-/*
-// Runs only once on mount
+}, [selectedGenre, currentPage]); 
 
-// useEffect(() => {
-//   fetchTVGenres();
-//   fetchGenres();
-  
-
-// }, []); // Runs only once when the app starts*/
 
 useEffect(() => {
   fetchTVGenres();

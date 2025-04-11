@@ -94,7 +94,7 @@ const MovieDetails = () => {
          {/* Genre */}
          <div className="mt-2 mb-4">
             <h3 className="text-2xl font-semibold">Genres</h3>
-            <div className="flex space-x-2 mt-2">
+            <div className="flex flex-wrap space-x-2 mt-2">
                 {movie.genres.map((genre) => (
                 <span
                     key={genre.id}

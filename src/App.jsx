@@ -1,29 +1,32 @@
-import Header from "./components/Header";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect,useState,useParams } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Home from "./pages/Home";
-import Notfound from "./pages/Notfound";
-import Footer from "./components/Footer";
-import Movies from "./pages/Movies";
- import { useEffect,useState,useParams } from "react";
-import Series from "./pages/Series";
-import MovieDetails from "./pages/MovieDetails";
-import SeriesDetails from "./pages/SeriesDetails";
-import Genre from "./pages/Genre";
-import Actor from "./pages/Actor"; 
-import SeasonDetails from "./pages/SeasonDetails";
-import TvGenre from "./pages/TvGenre"; 
-import NowPlaying from "./pages/NowPlaying";
-import Toprated from "./pages/Toprated";
-import Upcoming from "./pages/Upcoming";
-import Airingtoday from "./pages/Airingtoday";
-import Ontheair from "./pages/Ontheair";
-import Populartv from "./pages/Populartv";
-import Toptv from "./pages/Toptv";
 import Contactus from "./pages/Contactus";
+import Aboutus from "./pages/Aboutus";
+///////////////////////////////////////////
+import Home from "./pages/Home";
+import Actor from "./pages/Actor"; 
+import Notfound from "./pages/Notfound";
+import Movies from "./pages/movies/Movies";
+import MovieDetails from "./pages/movies/MovieDetails";
+import NowPlaying from "./pages/movies/NowPlaying";
+import Toprated from "./pages/movies/Toprated";
+import Upcoming from "./pages/movies/Upcoming";
+import Trending from "./pages/movies/Trending";
+import Genre from "./pages/movies/Genre";
+////////////////////////////////////////////////
+import Series from "./pages/series/Series";
+import SeriesDetails from "./pages/series/SeriesDetails";
+import SeasonDetails from "./pages/series/SeasonDetails";
+import TvGenre from "./pages/series/TvGenre"; 
+import Airingtoday from "./pages/series/Airingtoday";
+import Ontheair from "./pages/series/Ontheair";
+import Populartv from "./pages/series/Populartv";
+import Toptv from "./pages/series/Toptv";
 import  axios  from "axios";
-import Trending from "./pages/Trending";
 
 
 const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU ";
@@ -261,6 +264,7 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/contact-us"                    element={<Contactus />} />
 
+        <Route path="/about-us"                       element={<Aboutus />} />
 
 
 

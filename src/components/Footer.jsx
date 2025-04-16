@@ -13,7 +13,7 @@ const Footer = () => {
         <li>
           <Typography
             as={Link}
-            to="*"
+            to="/about-us"
             className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
           >
             About Us

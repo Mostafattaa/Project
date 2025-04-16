@@ -54,11 +54,11 @@ const Signup = ({registerNewUser, isLoggedIn, signError, setSignError}) => {
   }
   return (
     <div>
-      <div className="flex justify-center items-center min-h-[100%] bg-cyan-100 dark:bg-gray-900 w-full ">
+      <div className="flex justify-center items-center h-screen bg-gray-300 dark:bg-gray-900 w-full ">
         <Card className="w-80 m-9 bg-gray-700">
           <CardHeader
             variant="gradient"
-            className="m-4 grid p-3 place-items-center bg-gradient-to-tr   from-blue-900   to-black"
+            className="m-4 grid p-3 place-items-center bg-gradient-to-tr   dark:from-purple-700 dark:to-black from-red-900   to-black"
           >
             <Typography variant="h4" color="white" className="">
               Sign Up
@@ -79,7 +79,7 @@ const Signup = ({registerNewUser, isLoggedIn, signError, setSignError}) => {
             <Input onChange={handleCpass} type="password" label="Confirm Password" color="white" size="md" />
           </CardBody>
           <CardFooter className="pt-0">
-            <Button onClick={handleSignup} variant="gradient" fullWidth className="bg-gradient-to-tr   from-blue-900   to-black">
+            <Button onClick={handleSignup} variant="gradient" fullWidth className="bg-gradient-to-tr   dark:from-purple-700 dark:to-black from-red-900   to-black">
               Sign Up
             </Button>
             <Typography variant="small" color="white" className="mt-6 flex justify-center">
@@ -89,7 +89,7 @@ const Signup = ({registerNewUser, isLoggedIn, signError, setSignError}) => {
                 to="/login"
                 variant="small"
                 color="blue-gray"
-                className="ml-1 font-bold hover:text-blue-500"
+                className="ml-1 font-bold hover:text-red-500"
                 >
                 Log in
               </Typography>

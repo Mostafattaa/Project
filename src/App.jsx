@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate ,useLocation } from "react-router-dom";
 import { useEffect,useState,useParams } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -46,6 +46,16 @@ const App = () => {
   
   const navigate = useNavigate();
   
+  const ScrollToTop = () => {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0); // Scroll to top
+    }, [pathname]);
+  
+    return null;
+  };
+
   const getUsers = async () => {
     try {
       const response = await axios.get(API_UBASE_URL);
@@ -220,11 +230,12 @@ const [actor, setActor] = useState(null);
   return (
     <div>
      <Header isLoggedIn={isLoggedIn} logout={logout} />
+     <ScrollToTop />
 
      <Routes>
-        <Route   index path=""                        element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending} />}/>
+        <Route   index path=""                        element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending}  isLoggedIn={isLoggedIn}/>}/>
         
-        <Route   path="/home"                         element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending}/>}/>
+        <Route   path="/home"                         element={<Home                    movies={movies}  recentMovies={recentMovies} popularMovies={popularMovies}  nowPlaying={nowPlaying}  tvSeries={tvSeries}    trending={trending} isLoggedIn={isLoggedIn}/>}/>
 
         <Route  path="/login"                         element={<Login                   validateUser={validateUser} isLoggedIn={isLoggedIn} loginError={loginError} setLoginError={setLoginError} />}/>
         

@@ -30,7 +30,7 @@ const MovieDetails = () => {
         const reviewsRes = await axios.get(`${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}&language=en-US`);
         setReviews(reviewsRes.data.results);
 
-        // Fetch Collection Parts if the movie is part of a collection
+        // Fetch Collection Parts 
         if (movieRes.data.belongs_to_collection) {
           const collectionId = movieRes.data.belongs_to_collection.id;
           const collectionRes = await axios.get(`${BASE_URL}/collection/${collectionId}?api_key=${API_KEY}&language=en-US`);
@@ -64,7 +64,7 @@ const MovieDetails = () => {
 
   return (
 <div 
-  className="text-white min-h-screen relative" 
+  className="text-white min-h-screen  relative" 
   style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
 >
   {/* Blur  */}
@@ -94,7 +94,7 @@ const MovieDetails = () => {
          {/* Genre */}
          <div className="mt-2 mb-4">
             <h3 className="text-2xl font-semibold">Genres</h3>
-            <div className="flex flex-wrap space-x-2 mt-2">
+            <div className="flex flex-wrap gap-2  mt-2">
                 {movie.genres.map((genre) => (
                 <span
                     key={genre.id}
@@ -112,7 +112,7 @@ const MovieDetails = () => {
 
             {/* Movie Trailer */}
             {trailerKey ? (
-                <div className="m-8 flex flex-col justify-center items-center ">
+                <div className="lg:m-8 m-2 flex flex-col justify-center items-center ">
                     <h2 className="text-2xl font-bold p-4">Watch Trailer</h2>
                 <iframe
                     className="w-full h-[450px] rounded-lg shadow-lg"
@@ -147,14 +147,14 @@ const MovieDetails = () => {
             <hr className="m-2" />
 
              {/* Reviews Section */}
-             <div className="m-8">
+             <div className="m-3">
           <h2 className="text-2xl font-bold">Reviews</h2>
           {reviews.length > 0 ? (
             <div className="space-y-6 mt-4">
               {reviews.slice(0,5).map((review) => (
-                <div key={review.id} className="bg-gray-800 p-4 rounded-lg shadow-md">
+                <div key={review.id} className="bg-gray-800 p-3 rounded-lg shadow-md">
                   <p className="text-yellow-400 font-semibold">{review.author}</p>
-                  <p className="text-gray-300 mt-2">
+                  <p className="text-gray-300 mt-2 flex flex-wrap">
                     {expandedReviews[review.id] ? review.content : `${review.content.substring(0, 300)}...`}
                   </p>
                   {review.content.length > 300 && (
@@ -174,7 +174,7 @@ const MovieDetails = () => {
         </div>
             
 
-        {/* Movie Collection (Franchise Parts) */}
+        {/* Movie Collection  */}
         {collection &&  (
           
           <div className="mt-8">

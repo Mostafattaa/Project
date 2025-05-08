@@ -6,14 +6,15 @@ import { FaHeart } from 'react-icons/fa';
 const Series = ({ tvSeries, setTvSeries, currentPage, tvgenres, selectedGenre, setCurrentPage, setSelectedGenre, handleGenreSelect, handlePageChange }) => {
   const [tvTotalPages, setTvTotalPages] = useState(1);
   const navigate = useNavigate();
-  const API_BASE_URL = "https://api.themoviedb.org/3";
-  const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU";
+  const API_TOKEN     =import.meta.env.API_TOKEN
+  const BASE_URL      =import.meta.env.BASE_URL
+  const API_KEY       =import.meta.env.API_KEY
 
   useEffect(() => {
     const fetchSeries = async () => {
       try {
         const genreParam = selectedGenre ? `&with_genres=${selectedGenre}` : "";
-        const response = await axios.get(`${API_BASE_URL}/discover/tv?page=${currentPage}${genreParam}`, {
+        const response = await axios.get(`${BASE_URL}/discover/tv?page=${currentPage}${genreParam}`, {
           headers: { accept: "application/json", Authorization: API_TOKEN },
         });
 

@@ -1,11 +1,10 @@
  import React, { useState, useEffect, useRef } from 'react';
  import { useNavigate } from 'react-router-dom';
  import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
- import axios from 'axios';
  import { FaHeart } from 'react-icons/fa';
 
  import { Carousel } from '@material-tailwind/react';
- const Home = ({ movies, recentMovies, popularMovies, nowPlaying, tvSeries, trending }) => {
+ const Home = ({ movies, recentMovies, popularMovies, nowPlaying, tvSeries, trending ,isLoggedIn }) => {
   
    const carouselRef = useRef(null);
    const navigate = useNavigate();
@@ -48,7 +47,7 @@
                  <div className='absolute top-2 left-2 bg-black text-yellow-400 text-xs px-2 py-1 rounded-lg'>⭐ {movie.vote_average}</div>
                  
                   {/* Heart Icon (Top-Right Corner) */}
-                  <div className="absolute top-2 right-2 z-10 p-2 bg-gray-800/40 rounded-full backdrop-blur-md hover:bg-white/30 transition">
+                  <div className="absolute top-2 right-2 z-20 p-2 bg-gray-800/40 rounded-full backdrop-blur-md hover:bg-white/30 transition" onClick={() => isLoggedIn ? navigate(`/movie/${movie.id}`): navigate("/login") } >
                         <FaHeart className="w-5 h-5 text-white hover:text-red-500 transition-colors duration-200" />
                       </div>
                  
@@ -67,13 +66,13 @@
      </div>
    );
    return (
-     <div className=' bg-gray-300 dark:bg-gray-900 pt-4'>
+     <div className=' bg-gray-300 dark:bg-gray-900 pt-3'>
     
        <Carousel
        transition={{ type: "fade", duration: 1 }} 
        autoplay={true}
        loop={true}
-       className="w-full h-[550px] "
+       className="w-full h-[600px] "
        navigation={false}
     
      >
@@ -109,12 +108,12 @@
          </div>
        ))}
      </Carousel>
-      {renderCarousel("Trending", trending)}
-      {renderCarousel("Now Playing", nowPlaying)}
-      {renderCarousel("Top Rated Movies", movies)}
-      {renderCarousel("Popular Movies", popularMovies)}
-      {renderCarousel("Upcoming Movies", recentMovies)}
-      {renderCarousel("Popular TV Series", tvSeries)}
+      {renderCarousel("Trending",                trending)}
+      {renderCarousel("Now Playing",             nowPlaying)}
+      {renderCarousel("Top Rated Movies",        movies)}
+      {renderCarousel("Popular Movies",          popularMovies)}
+      {renderCarousel("Upcoming Movies",         recentMovies)}
+      {renderCarousel("Popular TV Series",       tvSeries)}
      </div>
    );
  };

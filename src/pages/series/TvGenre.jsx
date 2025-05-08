@@ -10,8 +10,9 @@ const TvGenre = ({tvSeries, setTvSeries,currentPage,handlePageChange}) => {
   const [tvTotalPages, setTvTotalPages] = useState(1);
   const navigate = useNavigate();
 
-  const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
-  const BASE_URL = "https://api.themoviedb.org/3";
+  const API_TOKEN     =import.meta.env.API_TOKEN
+const BASE_URL      =import.meta.env.BASE_URL
+const API_KEY       =import.meta.env.API_KEY
 
   useEffect(() => {
     const fetchShows = async () => {

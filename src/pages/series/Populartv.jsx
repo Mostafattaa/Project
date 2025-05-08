@@ -5,8 +5,9 @@ import { FaHeart } from 'react-icons/fa';
 
 const Populartv = ({tvSeries,setTvSeries, currentPage, tvTotalPages ,setTvTotalPages,handlePageChange,setCurrentPage}) => {
   const navigate = useNavigate();
-  const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU";
-
+  const API_TOKEN     =import.meta.env.API_TOKEN
+  const BASE_URL      =import.meta.env.BASE_URL
+  const API_KEY       =import.meta.env.API_KEY
   useEffect(()=>{
   const fetchPopulartv = async () => {
     try {

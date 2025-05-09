@@ -27,6 +27,7 @@ import Ontheair from "./pages/series/Ontheair";
 import Populartv from "./pages/series/Populartv";
 import Toptv from "./pages/series/Toptv";
 import  axios  from "axios";
+import SearchResults from "./pages/SearchResults";
 
 
 const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU ";
@@ -159,6 +160,23 @@ const fetchMovies = async (url, setter) => {
   }
 };
 
+const searchTMDB = async (query) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: API_TOKEN
+        },
+      });
+  const data = await response.json();
+  return data.results;
+}
+catch (error) {
+  console.error("Error searching TMDB:", error);
+  return [];
+};
+};
 
 useEffect(() => {
   fetchMovies("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", setNowPlaying);
@@ -276,6 +294,8 @@ const [actor, setActor] = useState(null);
         <Route  path="/contact-us"                    element={<Contactus />} />
 
         <Route path="/about-us"                       element={<Aboutus />} />
+
+        <Route path="/search" element={<SearchResults searchTMDB={searchTMDB} />} />
 
 
 

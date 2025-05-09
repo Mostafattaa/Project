@@ -60,7 +60,7 @@ const NavDropdown = ({ title, items }) => {
         
         <Typography as={Link} to={`/${title.toLowerCase()}`} variant="small" className="font-medium">
           <ListItem
-            className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+            className="flex items-center gap-2 py-2 pr-4 font-medium text-white"
             selected={isMenuOpen || isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
           >
@@ -86,7 +86,7 @@ const NavList = () =>{
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+ const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query)}`);
@@ -95,23 +95,12 @@ const NavList = () =>{
   };
   return (
   
-  <List className="mt-4  p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 ">
+  <List className="mt-4  p-0 lg:mt-0 lg:mb-0 lg:flex-row gap-2 lg:p-1 ">
     <Typography as={Link} to="/home" variant="small" color="white" className="font-medium">
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Home</ListItem>
     </Typography> 
 
-    <form onSubmit={handleSearch} className="flex gap-2 items-center">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="p-2 rounded border"
-        />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-          Search
-        </button>
-      </form>
+    
       
     <NavDropdown title="Movies" items={navListMenuItems} />
     <NavDropdown title="Series" items={navListSeries} />
@@ -119,13 +108,29 @@ const NavList = () =>{
     <Typography as={Link} to="/contact-us" variant="small" color="blue-gray" className="font-medium">
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Contact Us</ListItem>
     </Typography>
+    <Typography>
+            <form onSubmit={handleSearch} className="flex gap-2 items-center">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="p-1 text-black rounded border"
+            />
+            <button type="submit" className="bg-red-900 dark:bg-purple-700 text-white p-1 rounded">
+              Search
+            </button>
+          </form>
+          </Typography>
+          
+    
   </List>
 )};
 
 
 const Header = ({isLoggedIn, logout}) => {
   const [openNav, setOpenNav] = useState(false);
-  
+
 
 
   useEffect(() => {
@@ -149,7 +154,7 @@ const Header = ({isLoggedIn, logout}) => {
   };
   return (
     <div>
-      <Navbar className="mx-auto max-w-screen-4xl px-4 py-2  dark:bg-gradient-to-tr  dark:from-black dark:via-purple-800  dark:to-black bg-gradient-to-tr from-red-900 via-red-500 to-black  border-none rounded-none" >
+      <Navbar className="mx-auto max-w-screen-4xl px-2 py-2  dark:bg-gradient-to-tr  dark:from-black dark:via-purple-800  dark:to-black bg-gradient-to-tr from-red-900 via-red-500 to-black  border-none rounded-none" >
 
         <div className="flex items-center justify-between text-white">
           <Typography as={Link} to="/home" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2 hover:text-blue-200">
@@ -160,6 +165,8 @@ const Header = ({isLoggedIn, logout}) => {
             <NavList />
           </div>
           <div className="hidden gap-2 lg:flex">
+
+            
           {isLoggedIn ?
             <Menu>
             <MenuHandler>
@@ -215,9 +222,12 @@ const Header = ({isLoggedIn, logout}) => {
             </MenuList>
           </Menu>
             :
+            
           <Typography as={Link} to="/login" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
             <MdLogin className="text-2xl text-white" />
           </Typography>}
+          
+          
           <Typography as="span" to="/home" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
           {theme  ?  <MdDarkMode onClick={setLightTheme} className="text-2xl text-white "/>
 :            <MdLightMode onClick={setDarkTheme} className="text-2xl text-white "/>

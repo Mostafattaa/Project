@@ -17,7 +17,7 @@ import {
   Avatar,
   Badge
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const navListMenuItems = [
   { title: "All Movies",      path: "/movies" },
@@ -36,9 +36,12 @@ const navListSeries = [
 
 ];
 
+  
+
 const NavDropdown = ({ title, items }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
 
   const renderItems = items.map(({ title, path }, key) => (
     <Link to={path} key={key}>
@@ -79,12 +82,37 @@ const NavDropdown = ({ title, items }) => {
   );
 };
 
-const NavList = () => (
+const NavList = () =>{
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+      setQuery('');
+    }
+  };
+  return (
   
   <List className="mt-4  p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 ">
     <Typography as={Link} to="/home" variant="small" color="white" className="font-medium">
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Home</ListItem>
     </Typography> 
+
+    <form onSubmit={handleSearch} className="flex gap-2 items-center">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="p-2 rounded border"
+        />
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+          Search
+        </button>
+      </form>
+      
     <NavDropdown title="Movies" items={navListMenuItems} />
     <NavDropdown title="Series" items={navListSeries} />
     
@@ -92,10 +120,13 @@ const NavList = () => (
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Contact Us</ListItem>
     </Typography>
   </List>
-);
+)};
+
 
 const Header = ({isLoggedIn, logout}) => {
   const [openNav, setOpenNav] = useState(false);
+  
+
 
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));

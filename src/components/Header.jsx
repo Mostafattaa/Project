@@ -1,5 +1,5 @@
 import { FaBars, FaChevronDown} from "react-icons/fa";
-import { MdDarkMode, MdLightMode , MdLogin  } from "react-icons/md";
+import { MdDarkMode, MdLightMode , MdLogin ,MdSearch  } from "react-icons/md";
 import { FaXmark } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 import {
@@ -83,16 +83,16 @@ const NavDropdown = ({ title, items }) => {
 };
 
 const NavList = () =>{
-  const [query, setQuery] = useState('');
-  const navigate = useNavigate();
+//   const [query, setQuery] = useState('');
+//  const navigate = useNavigate();
 
- const handleSearch = (e) => {
-    e.preventDefault();
-    if (query.trim()) {
-      navigate(`/search?q=${encodeURIComponent(query)}`);
-      setQuery('');
-    }
-  };
+//  const handleSearch = (e) => {
+//     e.preventDefault();
+//     if (query.trim()) {
+//       navigate(`/search?q=${encodeURIComponent(query)}`);
+//       setQuery('');
+//     }
+//   };
   return (
   
   <List className="mt-4  p-0 lg:mt-0 lg:mb-0 lg:flex-row gap-2 lg:p-1 ">
@@ -108,20 +108,7 @@ const NavList = () =>{
     <Typography as={Link} to="/contact-us" variant="small" color="blue-gray" className="font-medium">
       <ListItem className="flex items-center gap-2 py-2 pr-4  text-white">Contact Us</ListItem>
     </Typography>
-    <Typography>
-            <form onSubmit={handleSearch} className="flex gap-2 items-center">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="p-1 text-black rounded border"
-            />
-            <button type="submit" className="bg-red-900 dark:bg-purple-700 text-white p-1 rounded">
-              Search
-            </button>
-          </form>
-          </Typography>
+    
           
     
   </List>
@@ -166,7 +153,10 @@ const Header = ({isLoggedIn, logout}) => {
           </div>
           <div className="hidden gap-2 lg:flex">
 
-            
+            <Typography as={Link} to="/search" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
+            <MdSearch className="text-2xl text-white" />
+          </Typography>
+
           {isLoggedIn ?
             <Menu>
             <MenuHandler>
@@ -229,20 +219,24 @@ const Header = ({isLoggedIn, logout}) => {
           
           
           <Typography as="span" to="/home" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
-          {theme  ?  <MdDarkMode onClick={setLightTheme} className="text-2xl text-white "/>
-:            <MdLightMode onClick={setDarkTheme} className="text-2xl text-white "/>
-}
+          {theme  ?  <MdDarkMode onClick={setLightTheme} className="text-2xl text-white "/>: <MdLightMode onClick={setDarkTheme} className="text-2xl text-white "/>}
           </Typography> 
 
           </div>
           
+          
           <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
+           
+            
             {openNav ? <FaXmark className="h-6 w-6" strokeWidth={2} /> : <FaBars className="h-6 w-6" strokeWidth={2} />}
           </IconButton>
         </div>
         <Collapse open={openNav}>
           <NavList />
           <div className="flex w-full flex-nowrap  justify-center items-center gap-2 lg:hidden">
+            <Typography as={Link} to="/search" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
+            <MdSearch className="text-2xl text-white" />
+          </Typography>
           {isLoggedIn ?
             <Menu>
             <MenuHandler>

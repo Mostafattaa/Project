@@ -9,6 +9,16 @@ const SearchResults = ({searchTMDB}) => {
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
+
+  const [qquery, setQQuery] = useState('');
+   const handleSearch = (e) => {
+    e.preventDefault();
+    if (qquery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(qquery)}`);
+      setQQuery('');
+    }
+  };
+
   useEffect(() => {
     if (query) {
         const options = {
@@ -32,7 +42,21 @@ const SearchResults = ({searchTMDB}) => {
 
   return (
     <div className="p-6  bg-gray-300 dark:bg-gray-900  text-black dark:text-white">
-      <h2 className="text-2xl mb-4 text-center">Search Results for "{query}"</h2>
+      <div className='flex justify-center items-center'> 
+        <form onSubmit={handleSearch} className="flex gap-2 items-center">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={qquery}
+              onChange={(e) => setQQuery(e.target.value)}
+              className="p-2 text-xl text-black rounded-lg border"
+            />
+            <button type="submit" className="bg-red-900 dark:bg-purple-700 text-white text-xl p-2 rounded-lg">
+              Search
+            </button>
+          </form>
+          </div>
+      <h2 className="text-2xl mb-4 text-center p-2">Search Results for "{query}"</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-6">
         {results.length > 0 ? (
           results.map((movie, index) => (

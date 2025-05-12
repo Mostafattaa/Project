@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from 'react-icons/fa';
 
-const Airingtoday = ({tvSeries, setTvSeries,currentPage,handlePageChange,isLoggedIn}) => {
+const Airingtoday = ({tvSeries, setTvSeries,currentPage,handlePageChange}) => {
   const navigate = useNavigate();
   const [tvTotalPages, setTvTotalPages] = useState(1);
   
@@ -55,7 +55,7 @@ const Airingtoday = ({tvSeries, setTvSeries,currentPage,handlePageChange,isLogge
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-6">
         {tvSeries.map((series) => (
-          <div key={series.id} className="bg-gradient-to-tr from-gray-600 to-gray-400  hover:from-red-700 hover:to-gray-700           dark:from-gray-900 dark:to-gray-700 dark:hover:from-purple-800 dark:hover:to-gray-800 dark:hover:bg-gradient-to-tr rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:scale-105" onClick={() => isLoggedIn ? navigate(`/tv/${series.id}`) : navigate("/login")}>
+          <div key={series.id} className="bg-gradient-to-tr from-gray-600 to-gray-400  hover:from-red-700 hover:to-gray-700           dark:from-gray-900 dark:to-gray-700 dark:hover:from-purple-800 dark:hover:to-gray-800 dark:hover:bg-gradient-to-tr rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition duration-300 hover:scale-105" onClick={() =>  navigate(`/tv/${series.id}`)}>
          
          <div className="absolute top-2 right-2 z-10 p-2 bg-gray-800/40 rounded-full backdrop-blur-md hover:bg-white/30 transition">
              <FaHeart className="w-5 h-5 text-white hover:text-red-500 transition-colors duration-200" />

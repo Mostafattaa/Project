@@ -259,17 +259,16 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/sign-up"                       element={<Signup                  registerNewUser={registerNewUser} isLoggedIn={isLoggedIn} signError={signError} setSignError={setSignError} />}/>
         
-        <Route  path="/movies"                        element={<Movies                 movies={movies} currentPage={currentPage} setMovies={setMovies} genres={genres} setGenres={setGenres} selectedGenre={selectedGenre} setCurrentPage={setCurrentPage} setSelectedGenre={setSelectedGenre} handleGenreSelect={handleGenreSelect} handlePageChange={handlePageChange} />}/>
+        <Route  path="/movies"                        element={<Movies                  movies={movies} currentPage={currentPage} setMovies={setMovies} genres={genres} setGenres={setGenres} selectedGenre={selectedGenre} setCurrentPage={setCurrentPage} setSelectedGenre={setSelectedGenre} handleGenreSelect={handleGenreSelect} handlePageChange={handlePageChange} />}/>
         
-        <Route  path="/series"                        element={<Series                 tvSeries={tvSeries} setTvSeries={setTvSeries} currentPage={currentPage} tvgenres={tvgenres} selectedGenre={selectedGenre} setCurrentPage={setCurrentPage} setSelectedGenre={setSelectedGenre} handleGenreSelect={handleGenreSelect} handlePageChange={handlePageChange}/>}/>
+        <Route  path="/series"                        element={<Series                  tvSeries={tvSeries} setTvSeries={setTvSeries} currentPage={currentPage} tvgenres={tvgenres} selectedGenre={selectedGenre} setCurrentPage={setCurrentPage} setSelectedGenre={setSelectedGenre} handleGenreSelect={handleGenreSelect} handlePageChange={handlePageChange}/>}/>
         
         <Route  path="/movie/:id"                     element={<MovieDetails />} />
         
         <Route  path="/tv/:id"                        element={<SeriesDetails />} />
         
-        <Route  path="/genre/:genreId/:genreName"     element={<Genre                  movies={movies}  setMovies={setMovies} movieTotalPages={movieTotalPages} setMovieTotalPages={setMovieTotalPages} currentPage={currentPage} handlePageChange={handlePageChange} />} /> {/* Updated name */}
-        
-        <Route  path="/actor/:actorId"                element={<Actor                  actor={actor} setActor={setActor} tvShows={tvShows} setTvShows={setTvShows} socialLinks={socialLinks} setSocialLinks={setSocialLinks} movies={movies} setMovies={setMovies} isLoggedIn={isLoggedIn}/>} /> {/* Add Actor Route */}
+        <Route  path="/genre/:genreId/:genreName"     element={<Genre                  movies={movies}  setMovies={setMovies} movieTotalPages={movieTotalPages} setMovieTotalPages={setMovieTotalPages} currentPage={currentPage} handlePageChange={handlePageChange} />} /> 
+        <Route  path="/actor/:actorId"                element={<Actor                  actor={actor}    setActor={setActor} tvShows={tvShows} setTvShows={setTvShows} socialLinks={socialLinks} setSocialLinks={setSocialLinks} movies={movies} setMovies={setMovies} isLoggedIn={isLoggedIn}/>} /> 
         
         <Route  path="/tv/:id/season/:seasonNumber"   element={<SeasonDetails />} />
         
@@ -283,7 +282,7 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/upcoming"                      element={<Upcoming               movies={movies}  setMovies={setMovies}  currentPage={currentPage} handlePageChange={handlePageChange}/>} />
         
-        <Route  path="/airing-today"                  element={<Airingtoday            tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage} setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange} isLoggedIn={isLoggedIn} />} />
+        <Route  path="/airing-today"                  element={<Airingtoday            tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage} setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange}  />} />
         
         <Route  path="/on-the-air"                    element={<Ontheair               tvSeries={tvSeries}   setTvSeries={setTvSeries} currentPage={currentPage}  setCurrentPage={setCurrentPage}  handlePageChange={handlePageChange}/>} />
         

@@ -35,19 +35,12 @@ const BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
 
 //Marcelinooooooooooo
-const API_UBASE_URL = "https://uttermost-light-outrigger.glitch.me/users";
+//const API_UBASE_URL = "https://uttermost-light-outrigger.glitch.me/users";
 
+///mostafa backend api
+const API_UBASE_URL = "https://moviedb-blond.vercel.app/api/auth";
 
-const App = () => {
-  //Marcelinooooooooo
-  const [user,setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.logged ? localStorage.logged : false);
-  const [signError,setSignError] = useState("");
-  const [loginError,setLoginError] = useState("");
-  
-  const navigate = useNavigate();
-  
-  const ScrollToTop = () => {
+const ScrollToTop = () => {
     const { pathname } = useLocation();
   
     useEffect(() => {
@@ -57,76 +50,135 @@ const App = () => {
     return null;
   };
 
-  const getUsers = async () => {
-    try {
-      const response = await axios.get(API_UBASE_URL);
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        alert("Failed to fetch users");
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  }
+const App = () => {
+  //Marcelinooooooooo
 
-  const registerNewUser = async (signName, signEmail, signPass) => {
-    const users = await getUsers();
-    const emailExists = users.some(user => user.email === signEmail);
-    if (emailExists) {
-      setSignError("Email already exists");
-      return;
-    }
-    try {
-      const response = await axios.post(API_UBASE_URL, {
-        name: signName,
-        email: signEmail,
-        password: signPass,
-        liked: []
-      });
-      if (response.status === 201) {
-        setUser(response.data);
-        setIsLoggedIn(true);
-        localStorage.setItem("id", response.data.id);
-        localStorage.setItem("logged", true);
-        navigate('/home')
-      } else {
-        setSignError("Failed to register user");
-      }
-    } catch (error) {
-      console.error("Error registering user:", error);
-    }
-  }
+const [user, setUser] = useState(null);
+const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("logged") === "true");
+const [signError, setSignError] = useState("");
+const [loginError, setLoginError] = useState("");
 
-  const validateUser = async (email, password) => {
-    try {
-      const response = await axios.get(API_UBASE_URL);
-      if (response.status !== 200) {
-        throw new Error("Failed to fetch users");
-      }
-      const user = response.data.find((user) => user.email === email && user.password === password);
-      if (user) {
-        setUser(user);
-        setIsLoggedIn(true);
-        localStorage.setItem("id", user.id);
-        localStorage.setItem("logged", true);
-        navigate('/home')
-      } else {
-        setLoginError("Invalid email or password");
-      }
-    } catch (error) {
-      console.error("Error validating user:", error);
-    }
-  }
+const navigate = useNavigate();
 
-  const logout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
-    localStorage.removeItem("id");
-    localStorage.removeItem("logged");
-    navigate('/home')
-  }
+
+  // const getUsers = async () => {
+  //   try {
+  //     const response = await axios.get(API_UBASE_URL);
+  //     if (response.status === 200) {
+  //       return response.data;
+  //     } else {
+  //       alert("Failed to fetch users");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   }
+  // }
+
+
+
+
+// marcelino
+  // const registerNewUser = async (signName, signEmail, signPass) => {
+  //   const users = await getUsers();
+  //   const emailExists = users.some(user => user.email === signEmail);
+  //   if (emailExists) {
+  //     setSignError("Email already exists");
+  //     return;
+  //   }
+  //   try {
+  //     const response = await axios.post(API_UBASE_URL, {
+  //       name: signName,
+  //       email: signEmail,
+  //       password: signPass,
+  //       liked: []
+  //     });
+  //     if (response.status === 201) {
+  //       setUser(response.data);
+  //       setIsLoggedIn(true);
+  //       localStorage.setItem("id", response.data.id);
+  //       localStorage.setItem("logged", true);
+  //       navigate('/home')
+  //     } else {
+  //       setSignError("Failed to register user");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error registering user:", error);
+  //   }
+  // }
+
+  // const validateUser = async (email, password) => {
+  //   try {
+  //     const response = await axios.get(API_UBASE_URL);
+  //     if (response.status !== 200) {
+  //       throw new Error("Failed to fetch users");
+  //     }
+  //     const user = response.data.find((user) => user.email === email && user.password === password);
+  //     if (user) {
+  //       setUser(user);
+  //       setIsLoggedIn(true);
+  //       localStorage.setItem("id", user.id);
+  //       localStorage.setItem("logged", true);
+  //       navigate('/home')
+  //     } else {
+  //       setLoginError("Invalid email or password");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error validating user:", error);
+  //   }
+  // }
+
+const logout = () => {
+  setUser(null);
+  setIsLoggedIn(false);
+  localStorage.removeItem("id");
+  localStorage.removeItem("logged");
+  navigate('/home'); 
+};
+
   //Marcelinooooooooooo----------------------
+
+  //Mostafa backend integration
+
+const registerNewUser = async (signName, signEmail, signPass) => {
+  try {
+    const response = await axios.post(`${API_UBASE_URL}/register`, {
+      name: signName,
+      email: signEmail,
+      password: signPass
+    });
+    if (response.status === 201) {
+      navigate('/login'); 
+    } else {
+      setSignError("Failed to register user");
+    }
+  } catch (error) {
+    const msg = error.response?.data?.data?.message || "Registration failed";
+    setSignError(msg);
+    console.log("Error registering user:", error);
+  }
+};
+
+const validateUser = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_UBASE_URL}/login`, {
+      email,
+      password
+    });
+    if (response.status === 201) {
+      const token = response.data.data.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("logged", true);
+      setIsLoggedIn(true);
+      navigate('/home');
+    } else {
+      setLoginError("Invalid email or password");
+    }
+  } catch (error) {
+    const msg = error.response?.data?.data?.message || "Login failed";
+    setLoginError(msg);
+    console.log("Error validating user:", error);
+  }
+};
 
 useEffect(() => {
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -142,7 +194,6 @@ const [recentMovies, setRecentMovies] = useState([]);
 const [popularMovies, setPopularMovies] = useState([]);
 const [nowPlaying, setNowPlaying] = useState([]);
 const [tvSeries, setTvSeries] = useState([]);
-const [populartvSeries, setPopularTvSeries] = useState([]);
 const [trending, setTrending] = useState([]);
 
 const fetchMovies = async (url, setter) => {
@@ -160,6 +211,7 @@ const fetchMovies = async (url, setter) => {
   }
 };
 
+//Marcelino
 const searchTMDB = async (query) => {
   try {
     const response = await axios.get(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
@@ -192,6 +244,7 @@ useEffect(() => {
 const [currentPage, setCurrentPage] = useState(() => {
   return localStorage.getItem("currentPage") ? JSON.parse(localStorage.getItem("currentPage")) : 1;
 });
+
 const [movieTotalPages, setMovieTotalPages] = useState(1);
   const [tvTotalPages, setTvTotalPages] = useState(1);
   const [genres, setGenres] = useState([]);
@@ -268,6 +321,7 @@ const [actor, setActor] = useState(null);
         <Route  path="/tv/:id"                        element={<SeriesDetails />} />
         
         <Route  path="/genre/:genreId/:genreName"     element={<Genre                  movies={movies}  setMovies={setMovies} movieTotalPages={movieTotalPages} setMovieTotalPages={setMovieTotalPages} currentPage={currentPage} handlePageChange={handlePageChange} />} /> 
+        
         <Route  path="/actor/:actorId"                element={<Actor                  actor={actor}    setActor={setActor} tvShows={tvShows} setTvShows={setTvShows} socialLinks={socialLinks} setSocialLinks={setSocialLinks} movies={movies} setMovies={setMovies} isLoggedIn={isLoggedIn}/>} /> 
         
         <Route  path="/tv/:id/season/:seasonNumber"   element={<SeasonDetails />} />
@@ -294,12 +348,7 @@ const [actor, setActor] = useState(null);
 
         <Route path="/about-us"                       element={<Aboutus />} />
 
-        <Route path="/search" element={<SearchResults searchTMDB={searchTMDB} />} />
-
-
-
-
-
+        <Route path="/search"                         element={<SearchResults searchTMDB={searchTMDB} />} />
 
         <Route  path="*" element={<Notfound />}/>
      </Routes>

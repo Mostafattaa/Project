@@ -147,7 +147,7 @@ const registerNewUser = async (signName, signEmail, signPass) => {
       password: signPass
     });
     if (response.status === 201) {
-      navigate('/login'); 
+      navigate('/login');
     } else {
       setSignError("Failed to register user");
     }
@@ -157,6 +157,8 @@ const registerNewUser = async (signName, signEmail, signPass) => {
     console.log("Error registering user:", error);
   }
 };
+
+
 
 const validateUser = async (email, password) => {
   try {

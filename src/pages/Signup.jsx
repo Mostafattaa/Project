@@ -37,8 +37,15 @@ const Signup = ({ registerNewUser, signError, setSignError }) => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-300 dark:bg-gray-900 w-full">
-      <Card className="w-80 m-9 bg-gray-700">
+    <div
+      className=" relative flex justify-center items-center h-screen w-full bg-cover bg-center"
+      style={{
+        backgroundImage: `url('/288727.jpg')`, // Replace with your preferred movie image
+      }}
+    >
+      {/* Semi-transparent overlay for better contrast */}
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <Card className="w-80 m-9 bg-gray-700 bg-opacity-40 backdrop-blur-md">
         <CardHeader
           variant="gradient"
           className="m-4 grid p-3 place-items-center bg-gradient-to-tr dark:from-purple-700 dark:to-black from-red-900 to-black"
@@ -64,7 +71,7 @@ const Signup = ({ registerNewUser, signError, setSignError }) => {
           </Button>
           <Typography variant="small" color="white" className="mt-4 text-center">
             Already have an account?
-            <Typography as={Link} to="/login" variant="small" color="blue-gray" className="ml-1 font-bold hover:text-red-500">
+            <Typography as={Link} to="/login" variant="small" color="blue" className="ml-1 font-bold hover:text-red-500">
               Log in
             </Typography>
           </Typography>

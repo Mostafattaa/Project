@@ -1,42 +1,89 @@
-
-import React from "react";
+import React, { useState } from "react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Input,
+  Typography,
+  Button,
+  Textarea,
+} from "@material-tailwind/react";
 
 const Contactus = () => {
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+    e.target.reset(); 
+  };
+
   return (
-    <div className="min-h-screen  bg-gray-300 dark:bg-gray-900 text-black dark:text-white flex flex-col items-center p-8">
-      <h1 className="text-4xl font-bold mb-8"> Feel Free to Contact Us!</h1>
-      <form className="w-full max-w-lg bg-gray-700 p-6 rounded-2xl shadow-xl space-y-6">
-        <div>
-          <label className="block mb-2 text-sm font-medium">Full Name</label>
-          <input
-            type="text"
-            placeholder="Your name"
-            className="w-full px-4 py-2 rounded-xl bg-gray-600 text-white outline-none"
-          />
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium">Email</label>
-          <input
-            type="email"
-            placeholder="you@example.com"
-            className="w-full px-4 py-2 rounded-xl bg-gray-600 text-white outline-none"
-          />
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium">Message</label>
-          <textarea
-            rows="5"
-            placeholder="Your message"
-            className="w-full px-4 py-2 rounded-xl bg-gray-600 text-white outline-none"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className=" p-4 bg-red-600 hover:bg-red-700 dark:bg-purple-500 dark:hover:bg-purple-700 py-2 rounded-xl font-semibold transition duration-200"
+  <div
+      className=" relative flex justify-center items-center h-screen w-full bg-cover bg-center"
+      style={{
+        backgroundImage: `url('/288727.jpg')`, 
+      }}
+    >
+      {/* Semi-transparent overlay for better contrast */}
+      <div className="absolute inset-0 bg-black opacity-60"></div>
+      
+      <Card className="w-96 m-6 bg-gray-700 bg-opacity-40 backdrop-blur-md">
+        <CardHeader
+          variant="gradient"
+          className="m-4 grid p-4 place-items-center bg-gradient-to-tr dark:from-purple-700 dark:to-black from-red-900 to-black"
         >
-          Send Message
-        </button>
-      </form>
+          <Typography variant="h4" color="white">
+            Contact Us 🎬
+          </Typography>
+        </CardHeader>
+
+        <form onSubmit={handleSubmit}>
+          <CardBody className="flex flex-col gap-4 text-white">
+            <Input
+              type="text"
+              name="name"
+              label="Full Name"
+              required
+              color="white"
+            />
+            <Input
+              type="email"
+              name="email"
+              label="Email"
+              required
+              color="white"
+            />
+            <Textarea
+              name="message"
+              label="Message"
+              required
+              color="white"
+              rows={4}
+            />
+            {sent && (
+              <Typography
+                variant="small"
+                color="green"
+                className="text-center pt-1"
+              >
+                ✅ Your message has been sent!
+              </Typography>
+            )}
+          </CardBody>
+
+          <CardFooter className="pt-0">
+            <Button
+              type="submit"
+              fullWidth
+              className="bg-gradient-to-tr dark:from-purple-700 dark:to-black from-red-900 to-black"
+            >
+              Send Message
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 };

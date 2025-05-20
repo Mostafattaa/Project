@@ -9,7 +9,7 @@ const Actor = ({movies, setMovies, tvShows,setTvShows,actor,setActor ,socialLink
   
   const navigate = useNavigate();
 
-  const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
+  const API_KEY = import.meta.env.VITE_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3";
 
   useEffect(() => {

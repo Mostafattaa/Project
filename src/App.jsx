@@ -32,10 +32,10 @@ import SearchResults from "./pages/SearchResults";
 
 const API_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwZWQ1N2ZlODM0YjZlZjc4Y2NmNTVkZmQ0ZmFiMjhmMCIsIm5iZiI6MTc0MTkyODI3My42ODEsInN1YiI6IjY3ZDNiNzUxYmY0ODE4ODU0YzY0ZWY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yeI-lDwnYLGcUQv_Ml8HxB5ouN7kfIf8uUr3BfXnKNU ";
 const BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 
 //Marcelinooooooooooo
-//const API_UBASE_URL = "https://uttermost-light-outrigger.glitch.me/users";
 
 ///mostafa backend api
 const API_UBASE_URL = "https://moviedb-blond.vercel.app/api/auth";
@@ -61,71 +61,6 @@ const [loginError, setLoginError] = useState("");
 const navigate = useNavigate();
 
 
-  // const getUsers = async () => {
-  //   try {
-  //     const response = await axios.get(API_UBASE_URL);
-  //     if (response.status === 200) {
-  //       return response.data;
-  //     } else {
-  //       alert("Failed to fetch users");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching users:", error);
-  //   }
-  // }
-
-
-
-
-// marcelino
-  // const registerNewUser = async (signName, signEmail, signPass) => {
-  //   const users = await getUsers();
-  //   const emailExists = users.some(user => user.email === signEmail);
-  //   if (emailExists) {
-  //     setSignError("Email already exists");
-  //     return;
-  //   }
-  //   try {
-  //     const response = await axios.post(API_UBASE_URL, {
-  //       name: signName,
-  //       email: signEmail,
-  //       password: signPass,
-  //       liked: []
-  //     });
-  //     if (response.status === 201) {
-  //       setUser(response.data);
-  //       setIsLoggedIn(true);
-  //       localStorage.setItem("id", response.data.id);
-  //       localStorage.setItem("logged", true);
-  //       navigate('/home')
-  //     } else {
-  //       setSignError("Failed to register user");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error registering user:", error);
-  //   }
-  // }
-
-  // const validateUser = async (email, password) => {
-  //   try {
-  //     const response = await axios.get(API_UBASE_URL);
-  //     if (response.status !== 200) {
-  //       throw new Error("Failed to fetch users");
-  //     }
-  //     const user = response.data.find((user) => user.email === email && user.password === password);
-  //     if (user) {
-  //       setUser(user);
-  //       setIsLoggedIn(true);
-  //       localStorage.setItem("id", user.id);
-  //       localStorage.setItem("logged", true);
-  //       navigate('/home')
-  //     } else {
-  //       setLoginError("Invalid email or password");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error validating user:", error);
-  //   }
-  // }
 
 const logout = () => {
   setUser(null);
@@ -135,8 +70,7 @@ const logout = () => {
   navigate('/home'); 
 };
 
-  //Marcelinooooooooooo----------------------
-
+  
   //Mostafa backend integration
 
 const registerNewUser = async (signName, signEmail, signPass) => {
@@ -328,7 +262,7 @@ const [actor, setActor] = useState(null);
         
         <Route  path="/tv/:id/season/:seasonNumber"   element={<SeasonDetails />} />
         
-        <Route  path="/tvgenre/:genreId/:genreName"   element={<TvGenre />} />
+        <Route  path="/tvgenre/:genreId/:genreName"   element={<TvGenre                 tvSeries={tvSeries} setTvSeries={setTvSeries} currentPage={currentPage} handlePageChange={handlePageChange}/>} />
         
         <Route  path="/now-playing"                   element={<NowPlaying             movies={movies}  setMovies={setMovies}  currentPage={currentPage} handlePageChange={handlePageChange}/>} />
         

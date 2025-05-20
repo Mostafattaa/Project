@@ -11,7 +11,7 @@ const TvGenre = ({tvSeries, setTvSeries,currentPage,handlePageChange}) => {
   const navigate = useNavigate();
 
  
-  const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
+  const API_KEY = import.meta.env.VITE_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3";
   
   useEffect(() => {
@@ -29,7 +29,7 @@ const TvGenre = ({tvSeries, setTvSeries,currentPage,handlePageChange}) => {
   }, [genreId,currentPage]);
 
   return (
-    <div className="text-white min-h-screen bg-black p-8">
+    <div className="text-black dark:text-white min-h-screen bg-gray-300 dark:bg-gray-900 p-8">
       <h1 className="text-3xl font-bold mb-6 text-center">{genreName} Tv Shows</h1>
 
       <div className="flex justify-center m-8 space-x-4">

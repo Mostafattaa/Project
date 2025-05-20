@@ -12,7 +12,7 @@ const SeriesDetails = () => {
   const [trailerKey, setTrailerKey] = useState(null);
 
 const BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = "0ed57fe834b6ef78ccf55dfd4fab28f0";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 
   useEffect(() => {
